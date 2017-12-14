@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lost_logo</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+				margin: 0px;
+				overflow: hidden;
+				background-color: #000000;
+				cursor: crosshair;
+				color: white;
+			}
+			.sito{
+				margin: 0;
+				padding: 0;
+
+			}
+			.arrow {
+				/*display: float;*/
+				position: absolute;
+				margin: auto;
+				bottom: 0px;
+				left: 50%;
+				margin-left: -40px;
+				z-index: 265;
+				cursor: pointer;
+			}
+			#container {
+				margin: 0;
+				padding: 0;
+				position: absolute;
+
+			}
+			.tempcanvas {
+				display: none !important;
+			}
+			#loading {
+				position: absolute;
+				margin: 0;
+				bottom:50%;
+				/*margin-top: -580px;*/
+				left: 50%;
+				margin-left: -22px;
+				z-index: 265;
+			}
+			canvas{
+				margin: 0;
+				padding: 0;
+			}
+			a {
+				color: #0080bb;
+			}
+			img {
+				margin: 0;
+				padding: 0;
+			}
+			button{
+				position: absolute;
+				background: none !important;
+				font-family: Rajdhani;
+				font-size:16px;
+				text-align:center;
+				color: #ffffff;
+			    border: none;
+			    cursor: pointer;
+			    /*bottom:0;*/
+			    /*top: 0;*/
+			}
+
+			.blink_me {
+			  animation: blinker .2s linear infinite;
+			}
+
+			@keyframes blinker {  
+			  20% { opacity: 0; }
+			}
+			@media 
+		      (-webkit-min-device-pixel-ratio: 2), 
+		      (min-resolution: 192dpi) { 
+		        #container{
+		          -ms-transform: scale(2, 2) translate(12.5vw, 12.5vh); /* IE 9 */
+		          -webkit-transform: scale(2, 2) translate(12.5vw, 12.5vh); /* Safari */
+		          transform: scale(2, 2) translate(12.5vw, 12.5vh);
+		      }}
+		</style>
+	</head>
+	<body>
+		<!-- <div id="Stats-output" style="display:none"></div>	 -->
+		<div >
+		  <div id="container"></div>
+		  <button id="loading" class="blink_me" onclick="location.reload();">READY</button>
+		  <div class="arrow"><img src="arrow.png" width="80px" onclick="scrollUp();"></img></div>
+
+
+		</div>
+
+
+			<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+			<script src="js/CustomEase.js"></script>
+
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/87/three.min.js"></script>
+			<script src="https://threejs.org/examples/js/controls/OrbitControls.js"></script>
+
+			<script src="js/index.js"></script>
+		</body>
+</html>
