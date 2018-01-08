@@ -1,3 +1,19 @@
+// var img = document.createElement("IMG");
+//     img.src = imageSource;
+//     img.setAttribute('id', imageId);
+//     document.getElementById("backup").appendChild(img);
+
+
+
+// var backupDiv = document.getElementById('backup');
+// var backup = document.createElement("img");
+// // backupDiv.appendChild(renderer.domElement);
+// backup.src = 'backup.jpg';
+// backup.setAttribute("height", window.innerHeight+200);
+// backup.classList.add("backup");
+// document.getElementById("backup").appendChild(backup);
+// document.getElementById("placehere").appendChild("elem");
+
 var canvas = document.createElement('canvas');
 var ctx = canvas.getContext('2d');
 var animationOffsets = {
@@ -45,6 +61,15 @@ if (matchMedia(query).matches) {
   var hhh = window.innerHeight;
 }
 
+window.onerror = function() {
+  document.getElementById("backup").style.backgroundImage = 'url("backup.jpg")';
+  document.getElementById("container").remove();
+  document.getElementById("loading").classList.remove("blink_me");
+  // $("#loading").css({bottom: '35%'});
+  document.getElementById("loading").innerHTML = ("INTRO NOT LOADING, <br>MAYBE CHANGE BROWSER? <br><br> SCROLL DOWN PLEASE");
+  return true;
+};
+// iii
 document.addEventListener("DOMContentLoaded", function(event) {
 loadImages(images, function(loadedImages) {
 loadedImages.forEach(function(el, index) {
@@ -67,19 +92,20 @@ var i = 0;
 // var pivot = new THREE.Group();
 // setTimeout(function(){
 init();
-// },500)
 
 });
 
 function scrollUp() {
-	$(window.parent.parent.top.document).find("body").animate({
-		scrollTop:window.innerHeight-70
+	console.log(window.innerHeight-70)
+	$(window.parent.top.document).find("html, body").animate({
+		// $("html, body").animate({
+		scrollTop: window.innerHeight-70
 	},500, 'swing');
 }
 
 
 function init() {
-
+	
 	// 
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color(0x0e0e0e);
@@ -103,10 +129,16 @@ function init() {
 	// controls.addEventListener( 'change', render ); // remove when using animation loop
 	controls.enableZoom = false;
 	controls.enableDamping = true;
+	if (/Mobi/.test(navigator.userAgent)) {
+	controls.dampingFactor = .07;
+	controls.rotateSpeed = 0.02;
+	} else{
 	controls.dampingFactor = .07;
 	controls.rotateSpeed = 0.1;
+	}
 	controls.minDistance = 300;
 	controls.maxDistance = 1700;
+	controls.enabled=false;
 
 
 	var spotLight = new THREE.DirectionalLight(0xffffff);
@@ -116,7 +148,7 @@ function init() {
         spotLight.name="spotLight"
         // scene.add(spotLight);
 
-
+        
 
 	var loader = new THREE.FontLoader();
 
@@ -218,10 +250,11 @@ function init() {
 	  // // name4.userData = { URL: "http://stackoverflow.com"};
 	  // scene.add(nameLoading);
 
-
+	  document.getElementById("loading").innerHTML = "READY";
 	 // document.getElementById('container').css('cursor', 'pointer');
-
+	
 	setTimeout(function(){
+	document.getElementById("loading").innerHTML = "GO!";
 	createScene();
 	animate();
 	},500)
@@ -248,12 +281,17 @@ var nParticles = .00005;
 // 	            color: 0x00fc4d
 // 	        } );
 // 	 particle = new THREE.Mesh(geometry2, mat);
-
+if (/Mobi/.test(navigator.userAgent)) {
+		partSize = 2;
+	}else{
+	partSize = 1;
+	}
+	
 var texture = (new THREE.TextureLoader).load("svg/particle_128.png");
 var material = new THREE.PointsMaterial({
-	size: 1,
+	size: partSize,
 	// vertexColors: THREE.VertexColors,
-	color: 0x9cff00,
+	color: 0x9bff3d,
 	map: texture,
 	alphaTest: 0.5,
 	// transparent: true,
@@ -355,7 +393,7 @@ galleryData[currentImage].forEach((el, index) => {
  	.to(name2.position, 4, {z:0, ease: CustomEase.create("custom", coolEase)}, 3)
  	.to(name3.position, 4, {z:0, ease: CustomEase.create("custom", coolEase)}, 4)
  // 	.to(name4.position, 2, {z:0, ease: CustomEase.create("custom", coolEase)}, 4.3)
- 	.to(dome.scale, 5, {x:.5, y:.5, z:.5, ease: CustomEase.create("custom", coolEase)}, 3)
+ 	.to(dome.scale, 5, {x:.5, y:.5, z:.5, ease: CustomEase.create("custom", coolEase), onComplete: function(){controls.enabled=true;}}, 3)
  // 	.from(pivot.position, 6, {z:2000, ease: CustomEase.create("custom", coolEase)}, 7)
  	.to(camera.position, 7, {z:300, ease: CustomEase.create("custom", coolEase)}, 2)
  	.to(pointCloud.position, 2, {z:-200, ease: CustomEase.create("custom", coolEase)}, 5)
@@ -663,7 +701,8 @@ function render() {
 
 	myTimerVideo0 = setTimeout( function() {
 		controls.update();
-
+		
+		// console.log("sdf")
 		camera.position.x += ( mouseX - camera.position.x ) * .03;
 		camera.position.y += ( - mouseY - camera.position.y ) * .03;
 	}, 8000 );
