@@ -47,7 +47,7 @@ var images = [
 ];
 
 var query = "(-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
- 
+
 if (matchMedia(query).matches) {
   // do high-dpi stuf
   var retinaCheck = 1;
@@ -105,8 +105,8 @@ function scrollUp() {
 
 
 function init() {
-	
-	// 
+
+	//
 	scene = new THREE.Scene();
 	scene.background = new THREE.Color(0x0e0e0e);
 	scene.fog = new THREE.Fog( 0x0e0e0e, 20, 4000);
@@ -148,7 +148,7 @@ function init() {
         spotLight.name="spotLight"
         // scene.add(spotLight);
 
-        
+
 
 	var loader = new THREE.FontLoader();
 
@@ -159,7 +159,7 @@ function init() {
 	    bevelEnabled: false,
 	    height: 1
 	  });
-	  THREE.GeometryUtils.center( geoTxtLost );
+	  THREE.GeometryUtils.geometry.center( geoTxtLost );
 	  var mat = new THREE.MeshBasicMaterial( {
 	            color: 0xffffff, //60ff00,
 	            transparent: true,
@@ -181,7 +181,7 @@ function init() {
 	    bevelEnabled: false,
 	    height: 1
 	  });
-	  THREE.GeometryUtils.center( geoTxtName1 );
+	  THREE.GeometryUtils.geometry.center( geoTxtName1 );
 	  var mat2 = new THREE.MeshBasicMaterial( {
 	            color: 0xffffff,
 	            transparent: true,
@@ -199,7 +199,7 @@ function init() {
 	    bevelEnabled: false,
 	    height: 1
 	  });
-	  THREE.GeometryUtils.center( geoTxtName2 );
+	  THREE.GeometryUtils.geometry.center( geoTxtName2 );
 	  var name2 = new THREE.Mesh(geoTxtName2, mat2);
 	  name2.name = 'name2';
 	  name2.position.y=30;
@@ -213,7 +213,7 @@ function init() {
 	    bevelEnabled: false,
 	    height: 1
 	  });
-	  THREE.GeometryUtils.center( geoTxtName3 );
+	  THREE.GeometryUtils.geometry.center( geoTxtName3 );
 	  var name3 = new THREE.Mesh(geoTxtName3, mat2);
 	  name3.name = 'name3';
 	  // name3.position.y=-2000;
@@ -226,7 +226,7 @@ function init() {
 	    bevelEnabled: false,
 	    height: 1
 	  });
-	  THREE.GeometryUtils.center( geoTxtName4 );
+	  THREE.GeometryUtils.geometry.center( geoTxtName4 );
 	  var name4 = new THREE.Mesh(geoTxtName4, mat2);
 	  name4.name = 'name4';
 	  name4.position.y=-40;
@@ -252,7 +252,7 @@ function init() {
 
 	  document.getElementById("loading").innerHTML = "READY";
 	 // document.getElementById('container').css('cursor', 'pointer');
-	
+
 	setTimeout(function(){
 	document.getElementById("loading").innerHTML = "GO!";
 	createScene();
@@ -260,7 +260,7 @@ function init() {
 	},500)
 
 	// dragCam();
-	
+
 	});
 
 
@@ -286,7 +286,7 @@ if (/Mobi/.test(navigator.userAgent)) {
 	}else{
 	partSize = 1;
 	}
-	
+
 var texture = (new THREE.TextureLoader).load("svg/particle_128.png");
 var material = new THREE.PointsMaterial({
 	size: partSize,
@@ -302,7 +302,7 @@ geometry = new THREE.Geometry();
 var x, y, z;
 
 // var nParticles = .05;
-galleryData[currentImage].forEach((el, index) => {
+galleryData[currentImage].forEach(function(el, index) {
 	nParticles+=.0001;
 	// material.size +=.0001,
 	geometry.vertices.push(new THREE.Vector3(
@@ -543,7 +543,7 @@ function onDocumentClick(event){
 
 
 function onWindowResize() {
-	
+
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 	if (retinaCheck == 0){
@@ -558,7 +558,7 @@ function onWindowResize() {
 }
 function onDocumentMouseMove(event) {
 
-	mouseX = ( event.clientX - windowHalfX ) * .5;	
+	mouseX = ( event.clientX - windowHalfX ) * .5;
 	mouseY = ( event.clientY - windowHalfY ) * .5;
 
 	// var pageX = event.pageX || event.clientX,
@@ -701,7 +701,7 @@ function render() {
 
 	myTimerVideo0 = setTimeout( function() {
 		controls.update();
-		
+
 		// console.log("sdf")
 		camera.position.x += ( mouseX - camera.position.x ) * .03;
 		camera.position.y += ( - mouseY - camera.position.y ) * .03;

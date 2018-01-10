@@ -1,136 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Lost_logo</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				margin: 0px;
-				overflow: hidden;
-				background-color: #000000;
-				cursor: crosshair;
-				color: white;
-				background: black;
-			}
-			.sito{
-				margin: 0;
-				padding: 0;
 
-			}
-			.arrow {
-				/*display: float;*/
-				position: absolute;
-				margin: auto;
-				bottom: 0px;
-				left: 50%;
-				margin-left: -40px;
+<head>
+	<title>Lost_logo</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<link rel="stylesheet" href="css/styles.css">
+</head>
 
-				z-index: 265;
-				cursor: pointer;
-				pointer-events: all;
-			}
-			#container {
-				margin: 0;
-				padding: 0;
-				position: absolute;
-				background: black;
-
-			}
-			.tempcanvas {
-				display: none !important;
-			}
-			#loading {
-				/*position: absolute;*/
-				margin: 0;
-				bottom:50%;
-				width:300px;
-				left: 50%;
-				margin-left: -150px;
-				letter-spacing: 2px;
-				z-index: 265;
-			}
-			canvas{
-				margin: 0;
-				padding: 0;
-			}
-			a {
-				color: #0080bb;
-			}
-			img {
-				margin: 0;
-				padding: 0;
-			}
-			button{
-				outline: none;
-				position: absolute;
-				background: none !important;
-				font-family: Rajdhani;
-				font-size:16px;
-				text-align:center;
-				color: #bbbbbb;
-			    border: none;
-			    cursor: pointer;
-			    /*bottom:0;*/
-			    /*top: 0;*/
-			}
-			#backup {
-				position: absolute;
-				pointer-events: none;
-				width:100%;
-				height:100%;
-    			background-position: center center;
-			}
-
-			.blink_me {
-			  animation: blinker .2s linear infinite;
-			}
-
-			@media screen and (max-width:767px){ 
-				body{
-					margin-top: -70px;
-				}
-				#loading{
-					top: 30%;
-				}
-		      	.arrow{
-		      		bottom: 120px !important;
-		      	}
-		      }
-
-			@keyframes blinker {  
-			  40% { opacity: 0; }
-			}
-			@media (-webkit-min-device-pixel-ratio: 2), 
-		      (min-resolution: 192dpi) { 
-		        #container{
-		          -ms-transform: scale(2, 2) translate(12.5vw, 12.5vh); /* IE 9 */
-		          -webkit-transform: scale(2, 2) translate(12.5vw, 12.5vh); /* Safari */
-		          transform: scale(2, 2) translate(12.5vw, 12.5vh);
-		      }}
-
-		      
-		</style>
-	</head>
-	<body>
-		<!-- <div id="Stats-output" style="display:none"></div>	 -->
-		<div>
-		  <div id="container"></div>
-		  <div id="backup"></div>
-		  <button id="loading" class="blink_me" onclick="location.reload();">INITIALIZING</button>
-		  <div class="arrow"><img src="arrow.png" width="80px" onclick="scrollUp();"></img></div>
+<body>
+	<!-- <div id="Stats-output" style="display:none"></div>	 -->
+	<div>
+		<div id="container"></div>
+		<div id="backup"></div>
+		<button id="loading" class="blink_me" onclick="location.reload();">INITIALIZING</button>
+		<div class="arrow"><img src="arrow.png" width="80px" onclick="scrollUp();"></img>
 		</div>
+	</div>
 
 
-			<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
-			<!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script> -->
-			<script src="js/TweenMax.min.js"></script>
-			<script src="js/jquery.min.js"></script>
-			<script src="js/CustomEase.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Rajdhani" rel="stylesheet">
+	<!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.5/dat.gui.min.js"></script> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/89/three.min.js"></script>
 
-			<script src="js/three.min.js"></script>
-			<script src="js/OrbitControls.js"></script>
+	<script src="js/CustomEase.js"></script>
+	<script src="js/OrbitControls.js"></script>
+	<script src="js/index.js"></script>
+</body>
 
-			<script src="js/index.js"></script>
-		</body>
 </html>
