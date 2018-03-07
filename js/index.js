@@ -282,16 +282,16 @@ var nParticles = .00005;
 // 	        } );
 // 	 particle = new THREE.Mesh(geometry2, mat);
 if (/Mobi/.test(navigator.userAgent)) {
-		partSize = 2;
+		partSize = 4;
 	}else{
-	partSize = 1;
+	partSize = 2;
 	}
 	
 var texture = (new THREE.TextureLoader).load("svg/particle_128.png");
 var material = new THREE.PointsMaterial({
 	size: partSize,
 	// vertexColors: THREE.VertexColors,
-	color: 0x9bff3d,
+	color: 0xe6430a,
 	map: texture,
 	alphaTest: 0.5,
 	// transparent: true,
