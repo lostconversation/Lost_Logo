@@ -33,6 +33,10 @@ nerve: 3, // дерганность шариков 1-5
 twitchDist: 10, // диапазон содрогания точек
 amount: 4000, // количество точек
 };
+var raycaster;
+var mouse = new THREE.Vector2(), INTERSECTED;
+
+var colorRed = 0xe6430a;
 
 canvas.width = options.resolution;
 canvas.height = options.resolution;
@@ -136,7 +140,7 @@ function init() {
 	controls.dampingFactor = .07;
 	controls.rotateSpeed = 0.1;
 	}
-	controls.minDistance = 300;
+	controls.minDistance = 200;
 	controls.maxDistance = 1700;
 	controls.enabled=false;
 
@@ -206,15 +210,43 @@ function init() {
 	  name2.position.z=1750;
 	  scene.add(name2);
 
+	  var btn = new THREE.Object3D();
+	  btn.name="btn";
+	  scene.add(btn);
 
-	  var geoTxtName3 = new THREE.TextGeometry('- coming soon - ', {
+	  	geometry3 = new THREE.PlaneGeometry(60,12, 1,1)
+        mat3 = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+        // transparent: true,
+        // opacity: 0.5
+        });
+        material3 = new THREE.MeshLambertMaterial({
+        color: 0xffffff,
+        transparent: true,
+        opacity: 0,
+        side: THREE.DoubleSide
+        });
+        // var SubdivisionModifier = require('three-subdivision-modifier');
+        // var modifier = new SubdivisionModifier( 222 ); // Number of subdivisions
+        // modifier.modify( geometry3 ); // Modifies geometry in place
+        planeBG = new THREE.Mesh(geometry3, material3);
+        planeBG.position.x = 0;
+        planeBG.position.y = 0;
+        planeBG.position.z = 0;
+        planeBG.name="planeBG";
+        // planeBG.visible = false;
+        // planeBG.scale.set(5,5,5)
+        btn.add(planeBG);
+
+
+	  var geoTxtName3 = new THREE.TextGeometry('CHECK IT OUT', {
 	    font: font,
 	    size: 6,
 	    bevelEnabled: false,
 	    height: 1
 	  });
 	  THREE.GeometryUtils.center( geoTxtName3 );
-	  var name3 = new THREE.Mesh(geoTxtName3, mat2);
+	  var name3 = new THREE.Mesh(geoTxtName3, mat3);
 	  name3.name = 'name3';
 	  // name3.position.y=-2000;
 	  name3.position.z=-8888;
@@ -233,6 +265,8 @@ function init() {
 	  name4.position.z=1750;
 	  // name4.userData = { URL: "http://stackoverflow.com"};
 	  scene.add(name4);
+
+	  
 
 
 
@@ -291,7 +325,7 @@ var texture = (new THREE.TextureLoader).load("svg/particle_128.png");
 var material = new THREE.PointsMaterial({
 	size: partSize,
 	// vertexColors: THREE.VertexColors,
-	color: 0xe6430a,
+	color: colorRed,
 	map: texture,
 	alphaTest: 0.5,
 	// transparent: true,
@@ -395,7 +429,7 @@ galleryData[currentImage].forEach((el, index) => {
  // 	.to(name4.position, 2, {z:0, ease: CustomEase.create("custom", coolEase)}, 4.3)
  	.to(dome.scale, 5, {x:.5, y:.5, z:.5, ease: CustomEase.create("custom", coolEase), onComplete: function(){controls.enabled=true;}}, 3)
  // 	.from(pivot.position, 6, {z:2000, ease: CustomEase.create("custom", coolEase)}, 7)
- 	.to(camera.position, 7, {z:300, ease: CustomEase.create("custom", coolEase)}, 2)
+ 	.to(camera.position, 7, {z:200, ease: CustomEase.create("custom", coolEase)}, 2)
  	.to(pointCloud.position, 2, {z:-200, ease: CustomEase.create("custom", coolEase)}, 5)
  	// .to(name1.position, 8, {z:-3000, ease: CustomEase.create("custom", coolEase)}, 13)
  	// .to(name2.position, 8, {z:-3000, ease: CustomEase.create("custom", coolEase)}, 13.3)
@@ -498,42 +532,36 @@ function onDocumentClick(event){
 
 
 	shoot();
-	// console.log(newCloud.position.z)
-	// this.newCloud=newCloud;
-// n+=1;
-// n=0;
-// if(n==1){
-// 	t1 = new TimelineLite()
-// 	t1
-// 	.to(lostTxt.position, 1, {z:0, ease: CustomEase.create("custom", coolEase)}, 5)
-//   	.to(name1.position, 1, {z:0, ease: CustomEase.create("custom", coolEase)}, .7)
-//  	.to(name2.position, 1, {z:0, ease: CustomEase.create("custom", coolEase)}, .8)
-//  	// .to(playGroup.scale, 2, {x:0, y:0, ease: CustomEase.create("custom", coolEase)}, 0)
-//  	;
 
-// }
-// else if (n==2){
-// 	obj1(50);
-// }
-// else if (n==3){
-// 	clone2();
-// 	let tlHello = new TimelineMax();
-// 	tlHello
-// 	.to(newCloud.scale, 1, {x:5, y:5, ease: CustomEase.create("custom", coolEase)}, 0)
-// 	.fromTo(newCloud.position, 2, {ease: Power2.easeInOut, z: 3000 }, { z: k*100-1000 } ,0)
-// 	// .fromTo(newCloudBack.position, 2, {ease: Power2.easeInOut, z: -3500 }, { z: -k*100 } ,0)
-// 	// .fromTo(newCloudBack, 5, {opacity:0},{opacity:1} ,0)
-// 	;
-// }else if (n==4){
-// 	clone2();
-// 	let tlHello = new TimelineMax();
-// 	tlHello
-// 	.to(newCloud.scale, 1, {x:5, y:5, ease: CustomEase.create("custom", coolEase)}, 0)
-// 	.fromTo(newCloud.position, 8, {ease: Power2.easeInOut, z: 3000 }, { z: k*100-1000 } ,0)
-// 	// .fromTo(newCloudBack.position, 2, {ease: Power2.easeInOut, z: -3500 }, { z: -k*100 } ,0)
-// 	// .fromTo(newCloudBack, 5, {opacity:0},{opacity:1} ,0)
-// 	;
-// }
+	raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera( mouse, camera );
+    var btn = scene.getObjectByName( "btn" , true)
+        if (!btn){} else {
+
+    var int2 = raycaster.intersectObjects( btn.children, true );
+    console.log(mouse, btn, btn.children, int2.length)
+    // var INTERSECTED
+        if ( int2.length > 0 ) {
+        	// console.log("yo");
+
+        	window.parent.top.location = "https://www.lostconversation.com/interactive"; 
+
+            var INTERSECTED1;
+            if ( INTERSECTED1 != int2[ 0 ].object ) {
+                INTERSECTED1 = int2[ 0 ].object;
+
+				// INTERSECTED1.material.opacity(.5);
+                // console.log("yo");
+        }
+            
+    }     
+    }
+
+    
+
+
+
+
 
 }
 
@@ -561,16 +589,34 @@ function onDocumentMouseMove(event) {
 	mouseX = ( event.clientX - windowHalfX ) * .5;	
 	mouseY = ( event.clientY - windowHalfY ) * .5;
 
-	// var pageX = event.pageX || event.clientX,
- //        pageY = event.pageY || event.clientY;
+	mouse.x = (( event.clientX / windowHalfX ) ) -1;
+    mouse.y = (( event.clientY / windowHalfY ) ) -1;
 
- //        if (pageX <= 0 || pageY <= 0) {
- //        	console.log("yo")
- //            return;
- //        }
 
-	// console.log(/mouseX)
-	// console.log(camera.position.z)
+	raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera( mouse, camera );
+    var btn = scene.getObjectByName( "btn" , true)
+        if (!btn){} else {
+
+    var int2 = raycaster.intersectObjects( btn.children, true );
+    console.log(mouse, btn, btn.children, int2.length)
+    // var INTERSECTED
+        if ( int2.length > 0 ) {
+        	// console.log("yo");
+            var INTERSECTED1;
+            if ( INTERSECTED1 != int2[ 0 ].object ) {
+                INTERSECTED1 = int2[ 0 ].object;
+                var hover = scene.getObjectByName( "name3" )
+				hover.material.color.setHex( colorRed );
+                // console.log("yo");
+        }
+            
+    }else{
+    	var hover = scene.getObjectByName( "name3" )
+				hover.material.color.setHex( 0xffffff );
+    }  
+    }
+
 }
 
 
