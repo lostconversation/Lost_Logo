@@ -214,13 +214,13 @@ function init() {
 	  btn.name="btn";
 	  scene.add(btn);
 
-	  	geometry3 = new THREE.PlaneGeometry(60,12, 1,1)
+	  	geometry3 = new THREE.PlaneGeometry(70,10, 1,1)
         mat3 = new THREE.MeshBasicMaterial({
         color: 0xffffff
         // transparent: true,
         // opacity: 0.5
         });
-        material3 = new THREE.MeshLambertMaterial({
+        material3 = new THREE.MeshBasicMaterial({
         color: 0xffffff,
         transparent: true,
         opacity: 0,
@@ -231,7 +231,7 @@ function init() {
         // modifier.modify( geometry3 ); // Modifies geometry in place
         planeBG = new THREE.Mesh(geometry3, material3);
         planeBG.position.x = 0;
-        planeBG.position.y = 0;
+        planeBG.position.y = 10;
         planeBG.position.z = 0;
         planeBG.name="planeBG";
         // planeBG.visible = false;
@@ -239,9 +239,9 @@ function init() {
         btn.add(planeBG);
 
 
-	  var geoTxtName3 = new THREE.TextGeometry('CHECK IT OUT', {
+	  var geoTxtName3 = new THREE.TextGeometry('OR EXPLORE PROJECTS', {
 	    font: font,
-	    size: 6,
+	    size: 5,
 	    bevelEnabled: false,
 	    height: 1
 	  });
@@ -250,19 +250,20 @@ function init() {
 	  name3.name = 'name3';
 	  // name3.position.y=-2000;
 	  name3.position.z=-8888;
+	  name3.position.y=-10;
 	  scene.add(name3);
 
-	  var geoTxtName4 = new THREE.TextGeometry("write me if want to know more", {
+	  var geoTxtName4 = new THREE.TextGeometry("CLICK & DRAG AROUND", {
 	    font: font,
-	    size: 8,
+	    size: 5,
 	    bevelEnabled: false,
 	    height: 1
 	  });
 	  THREE.GeometryUtils.center( geoTxtName4 );
 	  var name4 = new THREE.Mesh(geoTxtName4, mat2);
 	  name4.name = 'name4';
-	  name4.position.y=-40;
-	  name4.position.z=1750;
+	  name4.position.y=-2;
+	  name4.position.z=-8888;
 	  // name4.userData = { URL: "http://stackoverflow.com"};
 	  scene.add(name4);
 
@@ -409,7 +410,7 @@ galleryData[currentImage].forEach((el, index) => {
 	// dome.traverse( function ( object ) { object.visible = false; } );
 	lostTxt.traverse( function ( object ) { object.visible = false; } );
 	// name1.traverse( function ( object ) { object.visible = false; } );
-	name4.traverse( function ( object ) { object.visible = false; } );
+	// name4.traverse( function ( object ) { object.visible = false; } );
 	// playGroup.traverse( function ( object ) { object.visible = false; } );
 
 	setTimeout(function(){
@@ -425,8 +426,8 @@ galleryData[currentImage].forEach((el, index) => {
 	// .to(lostTxt.position, 2, {z:0, ease: CustomEase.create("custom", coolEase)}, 2)
   	.to(name1.position, 4, {z:0, ease: CustomEase.create("custom", coolEase)}, 2)
  	.to(name2.position, 4, {z:0, ease: CustomEase.create("custom", coolEase)}, 3)
- 	.to(name3.position, 4, {z:0, ease: CustomEase.create("custom", coolEase)}, 4)
- // 	.to(name4.position, 2, {z:0, ease: CustomEase.create("custom", coolEase)}, 4.3)
+ 	.to(name3.position, 4, {z:0, ease: CustomEase.create("custom", coolEase)}, 4.2)
+ 	.to(name4.position, 4, {z:0, ease: CustomEase.create("custom", coolEase)}, 4)
  	.to(dome.scale, 5, {x:.5, y:.5, z:.5, ease: CustomEase.create("custom", coolEase), onComplete: function(){controls.enabled=true;}}, 3)
  // 	.from(pivot.position, 6, {z:2000, ease: CustomEase.create("custom", coolEase)}, 7)
  	.to(camera.position, 7, {z:200, ease: CustomEase.create("custom", coolEase)}, 2)
@@ -482,7 +483,7 @@ let tlHello = new TimelineMax();
 	.from(dome.scale, 4, {ease: Power2.easeInOut, x:0, y:0, z:0 }, 0)
 	;
 
-	$('html,body').css('cursor', 'pointer');
+	// $('html,body').css('cursor', 'pointer');
 
 }
 
@@ -539,7 +540,7 @@ function onDocumentClick(event){
         if (!btn){} else {
 
     var int2 = raycaster.intersectObjects( btn.children, true );
-    console.log(mouse, btn, btn.children, int2.length)
+    // console.log(mouse, btn, btn.children, int2.length)
     // var INTERSECTED
         if ( int2.length > 0 ) {
         	// console.log("yo");
@@ -608,10 +609,13 @@ function onDocumentMouseMove(event) {
                 INTERSECTED1 = int2[ 0 ].object;
                 var hover = scene.getObjectByName( "name3" )
 				hover.material.color.setHex( colorRed );
+				$('html,body').css('cursor', 'pointer');
+				// document.getElementById('container').css('cursor', 'pointer');
                 // console.log("yo");
         }
             
     }else{
+    	$('html,body').css('cursor', 'crosshair');
     	var hover = scene.getObjectByName( "name3" )
 				hover.material.color.setHex( 0xffffff );
     }  
@@ -758,7 +762,8 @@ function render() {
 		name1.rotation.y=Math.PI;
 		name2.rotation.y=Math.PI;
 		name3.rotation.y=Math.PI;
-	} else {lostTxt.rotation.y=0;name1.rotation.y=0; name2.rotation.y=0, name3.rotation.y=0}
+		name4.rotation.y=Math.PI;
+	} else {lostTxt.rotation.y=0;name1.rotation.y=0; name2.rotation.y=0, name3.rotation.y=0, name4.rotation.y=0}
 
 
 	camera.lookAt( scene.position );
